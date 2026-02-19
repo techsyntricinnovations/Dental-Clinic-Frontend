@@ -1,8 +1,14 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import About from "@/components/About";
+import DoctorProfile from "@/components/DoctorProfile";
+import WhyChooseUs from "@/components/WhyChooseUs";
 import Services from "@/components/Services";
+import Process from "@/components/Process";
 import Testimonials from "@/components/Testimonials";
-import Appointment from "@/components/Appointment";
+
+import FAQ from "@/components/FAQ";
+
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -54,9 +60,15 @@ export default function Home() {
       />
       <Navbar />
       <Hero />
+      <About />
+      <DoctorProfile />
+      <WhyChooseUs />
       <Services />
+      <Process />
       <Testimonials />
-      <Appointment />
+
+      <FAQ />
+
       <Footer />
     </main>
   );

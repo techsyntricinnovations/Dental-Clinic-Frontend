@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Outfit } from "next/font/google";
+import { Geist, Geist_Mono, Outfit, Cormorant_Garamond } from "next/font/google";
+import { BookingProvider } from "@/contexts/BookingContext";
+import BookingModalWrapper from "@/components/BookingModalWrapper";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,6 +17,13 @@ const outfit = Outfit({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -54,6 +63,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://dentalcare-ranchi.com',
+  },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
   }
 };
 
@@ -65,9 +79,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} ${cormorant.variable} antialiased`}
       >
-        {children}
+        <BookingProvider>
+          {children}
+          <BookingModalWrapper />
+        </BookingProvider>
       </body>
     </html>
   );

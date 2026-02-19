@@ -2,12 +2,27 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone, Calendar, Stethoscope } from "lucide-react";
+import Image from "next/image";
+import { Menu, X, Phone, Calendar, ChevronDown } from "lucide-react";
+import { useBooking } from "@/contexts/BookingContext";
+
+const serviceLinks = [
+    { name: "Dental Implants", href: "/#dental-implants" },
+    { name: "Smile Makeovers", href: "/#smile-makeovers" },
+    { name: "Invisible Braces", href: "/#invisible-braces" },
+    { name: "Oral Surgery", href: "/#oral-surgery" },
+    { name: "Kids Dentistry", href: "/#kids-dentistry" },
+];
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [servicesOpen, setServicesOpen] = useState(false);
+    const pathname = usePathname();
+    const isHomePage = pathname === "/";
+    const { openModal } = useBooking();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -17,40 +32,94 @@ const Navbar = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    const showSolidNavbar = !isHomePage || scrolled;
+
     const navLinks = [
         { name: "Home", href: "/" },
-        { name: "Services", href: "#services" },
-        { name: "About Us", href: "#about" },
-        { name: "Testimonials", href: "#testimonials" },
-        { name: "Contact", href: "#contact" },
+        { name: "About Us", href: "/#about" },
+        { name: "Blogs", href: "/#blogs" },
+        { name: "Testimonials", href: "/#testimonials" },
+        { name: "Contact", href: "/contact" },
     ];
 
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "glass shadow-md py-3" : "bg-transparent py-5"
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${showSolidNavbar
+                ? "bg-sky-950/95 backdrop-blur-lg border-b border-white/5 shadow-xl shadow-sky-950/50 py-3"
+                : "bg-transparent py-6"
                 }`}
         >
             <div className="container mx-auto px-4 md:px-6">
                 <div className="flex items-center justify-between">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group">
-                        <div className="bg-primary p-2 rounded-xl group-hover:rotate-12 transition-transform">
-                            <Stethoscope className="text-white w-6 h-6" />
-                        </div>
-                        <span className="text-xl font-bold tracking-tight text-secondary dark:text-white">
-                            Dental<span className="text-primary text-2xl">Care</span>
-                        </span>
+                        <Image
+                            src="/assetes/logo.jpeg"
+                            alt="DentalCare"
+                            width={120}
+                            height={40}
+                            className="h-8 md:h-10 w-auto object-contain group-hover:opacity-90 transition-opacity"
+                            priority
+                        />
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center gap-8">
-                        {navLinks.map((link) => (
+                    <div className="hidden md:flex items-center gap-10">
+                        <Link
+                            href="/"
+                            className="relative text-sm font-semibold transition-colors duration-300 group py-1 text-white/90 hover:text-white"
+                        >
+                            Home
+                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                        </Link>
+
+                        {/* Services Dropdown */}
+                        <div
+                            className="relative"
+                            onMouseEnter={() => setServicesOpen(true)}
+                            onMouseLeave={() => setServicesOpen(false)}
+                        >
+                            <Link
+                                href="/#services"
+                                className="relative flex items-center gap-1 text-sm font-semibold transition-colors duration-300 py-1 text-white/90 hover:text-white"
+                            >
+                                Services
+                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${servicesOpen ? "rotate-180" : ""}`} />
+                                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                            </Link>
+                            <AnimatePresence>
+                                {servicesOpen && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.2 }}
+                                        className="absolute top-full left-0 pt-2 min-w-[200px]"
+                                    >
+                                        <div className="bg-sky-950/98 backdrop-blur-lg border border-white/10 rounded-xl shadow-xl py-2 overflow-hidden">
+                                            {serviceLinks.map((link) => (
+                                                <Link
+                                                    key={link.name}
+                                                    href={link.href}
+                                                    className="block px-5 py-2.5 text-sm font-medium text-white/90 hover:text-white hover:bg-primary/20 transition-colors"
+                                                >
+                                                    {link.name}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+
+                        {navLinks.slice(1).map((link) => (
                             <Link
                                 key={link.name}
                                 href={link.href}
-                                className="text-sm font-medium text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary transition-colors"
+                                className="relative text-sm font-semibold transition-colors duration-300 group py-1 text-white/90 hover:text-white"
                             >
                                 {link.name}
+                                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
                             </Link>
                         ))}
                     </div>
@@ -59,23 +128,23 @@ const Navbar = () => {
                     <div className="hidden md:flex items-center gap-4">
                         <a
                             href="tel:+1234567890"
-                            className="flex items-center gap-2 text-sm font-semibold text-secondary dark:text-white"
+                            className="flex items-center gap-2 text-sm font-semibold text-white/90 hover:text-white transition-colors"
                         >
                             <Phone className="w-4 h-4 text-primary" />
                             <span>(123) 456-7890</span>
                         </a>
-                        <Link
-                            href="#appointment"
+                        <button
+                            onClick={openModal}
                             className="bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg hover:shadow-primary/30 flex items-center gap-2 active:scale-95"
                         >
                             <Calendar className="w-4 h-4" />
                             Book Appointment
-                        </Link>
+                        </button>
                     </div>
 
                     {/* Mobile Menu Button */}
                     <button
-                        className="md:hidden text-secondary dark:text-white p-2"
+                        className="md:hidden p-2 text-white"
                         onClick={() => setIsOpen(!isOpen)}
                     >
                         {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -90,35 +159,77 @@ const Navbar = () => {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden glass border-t border-slate-200 dark:border-slate-800 overflow-hidden"
+                        className="md:hidden bg-white border-t border-slate-200 overflow-hidden"
                     >
                         <div className="flex flex-col gap-4 p-6">
-                            {navLinks.map((link) => (
+                            <Link
+                                href="/"
+                                className="text-lg font-medium text-slate-700"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                Home
+                            </Link>
+                            <div>
+                                <button
+                                    onClick={() => setServicesOpen(!servicesOpen)}
+                                    className="flex items-center justify-between w-full text-lg font-medium text-slate-700"
+                                >
+                                    Services
+                                    <ChevronDown className={`w-5 h-5 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+                                </button>
+                                <AnimatePresence>
+                                    {servicesOpen && (
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: "auto", opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            className="overflow-hidden pl-4 mt-2 space-y-2"
+                                        >
+                                            {serviceLinks.map((link) => (
+                                                <Link
+                                                    key={link.name}
+                                                    href={link.href}
+                                                    className="block text-base text-slate-600"
+                                                    onClick={() => {
+                                                        setIsOpen(false);
+                                                        setServicesOpen(false);
+                                                    }}
+                                                >
+                                                    {link.name}
+                                                </Link>
+                                            ))}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                            {navLinks.slice(1).map((link) => (
                                 <Link
                                     key={link.name}
                                     href={link.href}
-                                    className="text-lg font-medium text-slate-700 dark:text-slate-200"
+                                    className="text-lg font-medium text-slate-700"
                                     onClick={() => setIsOpen(false)}
                                 >
                                     {link.name}
                                 </Link>
                             ))}
-                            <hr className="border-slate-200 dark:border-slate-700" />
+                            <hr className="border-slate-200" />
                             <div className="flex flex-col gap-4">
                                 <a
                                     href="tel:+1234567890"
-                                    className="flex items-center gap-3 text-lg font-semibold text-secondary dark:text-white"
+                                    className="flex items-center gap-3 text-lg font-semibold text-secondary"
                                 >
                                     <Phone className="w-5 h-5 text-primary" />
                                     <span>(123) 456-7890</span>
                                 </a>
-                                <Link
-                                    href="#appointment"
-                                    className="bg-primary text-white p-4 rounded-2xl text-center font-bold shadow-lg"
-                                    onClick={() => setIsOpen(false)}
+                                <button
+                                    onClick={() => {
+                                        setIsOpen(false);
+                                        openModal();
+                                    }}
+                                    className="bg-primary text-white p-4 rounded-2xl text-center font-bold shadow-lg w-full"
                                 >
                                     Book Appointment
-                                </Link>
+                                </button>
                             </div>
                         </div>
                     </motion.div>
