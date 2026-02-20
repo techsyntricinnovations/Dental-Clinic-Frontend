@@ -1,7 +1,16 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://dentalcare-demo.vercel.app'
+    const baseUrl = 'https://dentalcare-ranchi.com'
+    const services = ['rct', 'dental-implants', 'crowns-bridges', 'gum-therapy', 'orthodontics', 'teeth-whitening']
+
+    const servicePages = services.map((slug) => ({
+        url: `${baseUrl}/services/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.8,
+    }))
+
     return [
         {
             url: baseUrl,
@@ -9,20 +18,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: 'monthly',
             priority: 1,
         },
+        ...servicePages,
         {
-            url: `${baseUrl}/#services`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/#about`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/#appointment`,
+            url: `${baseUrl}/contact`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.9,

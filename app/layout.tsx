@@ -28,38 +28,54 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: {
-    default: "DentalCare - Best Dentist in Ranchi, Jharkhand | Advanced Dental Clinic",
-    template: "%s | DentalCare Ranchi"
+    default: "Vandana Oral and Dental Care - Best Dentist in Ranchi | Top Dental Clinic",
+    template: "%s | Vandana Oral and Dental Care Ranchi"
   },
-  description: "Advanced dental clinic in Ranchi, Jharkhand. Experience world-class dental care with top dentists in Ranchi. Specializing in implants, root canals, and cosmetic dentistry. Book your appointment today!",
+  description: "Vandana Oral and Dental Care is the best dental clinic in Ranchi, Jharkhand. Led by Dr. Vandana Agarwal, we offer advanced implants, painless RCT, and aesthetic dentistry. Book an appointment with Ranchi's top dentist today!",
   keywords: [
     "best dentist in ranchi",
     "dental clinic in ranchi",
-    "dentist in jharkhand",
-    "teeth whitening ranchi",
+    "top dental clinic ranchi",
+    "dentist in lalpur ranchi",
     "dental implants ranchi",
     "root canal specialist ranchi",
-    "best dental clinic Ranchi",
+    "teeth whitening ranchi",
+    "dr vandana agarwal dentist",
+    "painless dentistry ranchi",
     "orthodontist in ranchi"
   ],
-  authors: [{ name: "DentalCare Ranchi" }],
-  creator: "DentalCare Ranchi",
+  authors: [{ name: "Dr. Vandana Agarwal" }],
+  creator: "Dr. Vandana Agarwal",
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: "https://dentalcare-ranchi.com",
-    title: "Best Dental Clinic in Ranchi | DentalCare",
-    description: "Your partner in achieving a healthy, beautiful smile in Ranchi. State-of-the-art dental care for the whole family in Jharkhand.",
-    siteName: "DentalCare Ranchi",
+    title: "Vandana Oral and Dental Care - Ranchi's Most Advanced Dental Clinic",
+    description: "Experience painless dentistry at Ranchi's premier dental destination. Specializing in implants, aesthetic surgery, and family dental care.",
+    siteName: "Vandana Oral and Dental Care",
+    images: [{
+      url: '/assetes/logo1.png',
+      width: 1200,
+      height: 630,
+      alt: 'Vandana Oral and Dental Care Ranchi'
+    }]
   },
   twitter: {
     card: "summary_large_image",
-    title: "DentalCare Ranchi - Top Dental Clinic in Jharkhand",
-    description: "State-of-the-art dental care for the whole family in Ranchi.",
+    title: "Best Dentist in Ranchi | Vandana Oral and Dental Care",
+    description: "Advanced dental care and aesthetic transformations in Ranchi, Jharkhand.",
+    images: ['/assetes/logo1.png'],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
   alternates: {
     canonical: 'https://dentalcare-ranchi.com',
@@ -68,8 +84,16 @@ export const metadata: Metadata = {
     width: 'device-width',
     initialScale: 1,
     maximumScale: 5,
+  },
+  icons: {
+    icon: '/assetes/logo1.png',
+    shortcut: '/assetes/logo1.png',
+    apple: '/assetes/logo1.png',
   }
 };
+
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export default function RootLayout({
   children,
@@ -78,11 +102,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="preload"
+          href="/assetes/Dvideo1.mp4"
+          as="video"
+          type="video/mp4"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} ${cormorant.variable} antialiased`}
       >
         <BookingProvider>
+          <Navbar />
           {children}
+          <Footer />
           <BookingModalWrapper />
         </BookingProvider>
       </body>

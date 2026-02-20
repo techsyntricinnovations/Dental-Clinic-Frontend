@@ -9,11 +9,12 @@ import { Menu, X, Phone, Calendar, ChevronDown } from "lucide-react";
 import { useBooking } from "@/contexts/BookingContext";
 
 const serviceLinks = [
-    { name: "Dental Implants", href: "/#dental-implants" },
-    { name: "Smile Makeovers", href: "/#smile-makeovers" },
-    { name: "Invisible Braces", href: "/#invisible-braces" },
-    { name: "Oral Surgery", href: "/#oral-surgery" },
-    { name: "Kids Dentistry", href: "/#kids-dentistry" },
+    { name: "Root Canal (RCT)", href: "/services/rct" },
+    { name: "Dental Implants", href: "/services/dental-implants" },
+    { name: "Crowns & Bridges", href: "/services/crowns-bridges" },
+    { name: "Gum Therapy", href: "/services/gum-therapy" },
+    { name: "Orthodontics", href: "/services/orthodontics" },
+    { name: "Teeth Whitening", href: "/services/teeth-whitening" },
 ];
 
 const Navbar = () => {
@@ -36,8 +37,8 @@ const Navbar = () => {
 
     const navLinks = [
         { name: "Home", href: "/" },
-        { name: "About Us", href: "/#about" },
-        { name: "Blogs", href: "/#blogs" },
+        { name: "About Us", href: "/about" },
+        { name: "Blogs", href: "/blogs" },
         { name: "Testimonials", href: "/#testimonials" },
         { name: "Contact", href: "/contact" },
     ];
@@ -52,15 +53,23 @@ const Navbar = () => {
             <div className="container mx-auto px-4 md:px-6">
                 <div className="flex items-center justify-between">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2 group">
+                    <Link href="/" className="flex items-center gap-3 group">
                         <Image
-                            src="/assetes/logo.jpeg"
-                            alt="DentalCare"
-                            width={120}
-                            height={40}
-                            className="h-8 md:h-10 w-auto object-contain group-hover:opacity-90 transition-opacity"
+                            src="/assetes/logo1.png"
+                            alt="Vandana Oral and Dental Care"
+                            width={200}
+                            height={62}
+                            className="h-12 md:h-16 w-auto object-contain group-hover:opacity-90 transition-opacity"
                             priority
                         />
+                        <div className="flex flex-col">
+                            <span className="text-lg sm:text-2xl font-[family-name:var(--font-cormorant)] font-bold italic tracking-tight text-white leading-none">
+                                Vandana Oral
+                            </span>
+                            <span className="text-[8px] sm:text-[10px] uppercase tracking-[0.3em] font-bold text-primary leading-none mt-1">
+                                & Dental Care
+                            </span>
+                        </div>
                     </Link>
 
                     {/* Desktop Navigation */}
@@ -127,11 +136,11 @@ const Navbar = () => {
                     {/* CTA Buttons */}
                     <div className="hidden md:flex items-center gap-4">
                         <a
-                            href="tel:+1234567890"
+                            href="tel:+919835500551"
                             className="flex items-center gap-2 text-sm font-semibold text-white/90 hover:text-white transition-colors"
                         >
                             <Phone className="w-4 h-4 text-primary" />
-                            <span>(123) 456-7890</span>
+                            <span>+91 98355 00551</span>
                         </a>
                         <button
                             onClick={openModal}
@@ -215,11 +224,11 @@ const Navbar = () => {
                             <hr className="border-slate-200" />
                             <div className="flex flex-col gap-4">
                                 <a
-                                    href="tel:+1234567890"
+                                    href="tel:+919835500551"
                                     className="flex items-center gap-3 text-lg font-semibold text-secondary"
                                 >
                                     <Phone className="w-5 h-5 text-primary" />
-                                    <span>(123) 456-7890</span>
+                                    <span>+91 98355 00551</span>
                                 </a>
                                 <button
                                     onClick={() => {

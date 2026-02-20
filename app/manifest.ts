@@ -2,8 +2,8 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
     return {
-        name: 'DentalCare Clinic',
-        short_name: 'DentalCare',
+        name: 'Vandana Oral and Dental Care',
+        short_name: 'Vandana Dental',
         description: 'Advanced Dental Clinic & Oral Surgery',
         start_url: '/',
         display: 'standalone',

@@ -40,7 +40,7 @@ const Process = () => {
     ];
 
     return (
-        <section ref={containerRef} className="py-16 md:py-24 lg:py-32 bg-white relative overflow-hidden">
+        <section id="process" ref={containerRef} className="py-16 md:py-24 lg:py-32 bg-white relative overflow-hidden">
             <div className="container mx-auto px-4 md:px-6 relative">
                 <div className="max-w-3xl mx-auto text-center mb-32">
                     <motion.span
@@ -53,9 +53,9 @@ const Process = () => {
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-7xl font-[family-name:var(--font-cormorant)] text-secondary italic leading-tight"
+                        className="text-3xl sm:text-5xl md:text-7xl font-[family-name:var(--font-cormorant)] text-secondary italic leading-tight"
                     >
-                        Your journey to a <br />
+                        Your journey to a <br className="hidden sm:block" />
                         <span className="not-italic font-black text-primary tracking-tighter uppercase">Masterpiece.</span>
                     </motion.h2>
                 </div>

@@ -1,52 +1,45 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 const testimonials = [
     {
-        name: "Sarah Johnson",
+        name: "Karna Shing",
         role: "Patient",
-        text: "The best dental experience I've ever had. Our family finally found a clinic that actually cares about comfort.",
+        text: "I highly recommend this clinic! Staff are very welcoming and kind. Dr. Vandana is very knowledgeable and I always feel like I'm learning something new from her with each visit. Currently doing my Invisalign treatment with her.",
         rating: 5,
-        img: "https://i.pravatar.cc/100?img=32"
+        img: "https://ui-avatars.com/api/?name=Karna+Shing&background=random"
     },
     {
-        name: "Michael Chen",
+        name: "Samaksh Agarwal",
         role: "Patient",
-        text: "Very modern clinic with amazing staff. They explained the whole process clearly and the result was perfect.",
+        text: "Always have a great, smooth experience here. The Doctor is friendly, respectful, caring and courteous of your time. Perfect treatment or should I say had an wonderful experience getting my dental surgery!",
         rating: 5,
-        img: "https://i.pravatar.cc/100?img=12"
+        img: "https://ui-avatars.com/api/?name=Samaksh+Agarwal&background=random"
     },
     {
-        name: "Emily Davis",
+        name: "Sanjana Bharti",
         role: "Patient",
-        text: "I was always afraid of dentists, but the gentle care here changed everything. My new smile looks so natural!",
+        text: "Treatment is very well done here. The Doctor is very friendly, calm and kind and is a good listener to your problems. Highly satisfied with the care provided.",
         rating: 5,
-        img: "https://i.pravatar.cc/100?img=44"
+        img: "https://ui-avatars.com/api/?name=Sanjana+Bharti&background=random"
     },
     {
-        name: "Rahul Verma",
+        name: "Vikram Shahdeo",
         role: "Patient",
-        text: "Best clinic in Ranchi for implants. Painless treatment and very professional behavior by the senior doctors.",
+        text: "No stories, she knows her job. Charges are reasonable. It was a good feel to find a genuine dentist close by with such high standards of professional care.",
         rating: 5,
-        img: "https://i.pravatar.cc/100?img=68"
+        img: "https://ui-avatars.com/api/?name=Vikram+Shahdeo&background=random"
     },
     {
-        name: "Priya Singh",
+        name: "Laxman Shahdeo",
         role: "Patient",
-        text: "Used clear aligners here and the results are unbelievable. No one even noticed I was wearing them!",
+        text: "She is very well behaved and also her hand is so stable. She is a very good doctor. One of the best experiences for dental treatment in Ranchi.",
         rating: 5,
-        img: "https://i.pravatar.cc/100?img=45"
-    },
-    {
-        name: "Ankit Sharma",
-        role: "Patient",
-        text: "Emergency service was a lifesaver. Had a severe toothache at 10 PM and they handled it with priority.",
-        rating: 5,
-        img: "https://i.pravatar.cc/100?img=11"
+        img: "https://ui-avatars.com/api/?name=Laxman+Shahdeo&background=random"
     }
 ];
 
@@ -91,9 +84,9 @@ const Testimonials = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.1 }}
-                        className="text-3xl md:text-5xl font-[family-name:var(--font-cormorant)] text-secondary italic leading-tight"
+                        className="text-3xl sm:text-5xl font-[family-name:var(--font-cormorant)] text-secondary italic leading-tight"
                     >
-                        Smiles that speak for <br />
+                        Smiles that speak for <br className="hidden sm:block" />
                         <span className="not-italic font-black text-primary tracking-tighter uppercase">Our Quality.</span>
                     </motion.h2>
                 </div>
@@ -125,13 +118,12 @@ const Testimonials = () => {
                                         </p>
 
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20 p-0.5 shadow-md">
+                                            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20 p-0.5 shadow-md relative">
                                                 <Image
                                                     src={item.img}
                                                     alt={item.name}
-                                                    width={40}
-                                                    height={40}
-                                                    className="w-full h-full object-cover rounded-full"
+                                                    fill
+                                                    className="object-cover rounded-full"
                                                 />
                                             </div>
                                             <div>
@@ -150,20 +142,20 @@ const Testimonials = () => {
                     </div>
 
                     {/* Navigation Buttons */}
-                    <div className="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-12 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute top-1/2 -translate-y-1/2 -left-2 sm:-left-4 md:-left-12 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <button
                             onClick={prevSlide}
-                            className="w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all border border-slate-100"
+                            className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/90 shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all border border-slate-100"
                         >
-                            <ChevronLeft size={20} />
+                            <ChevronLeft size={18} />
                         </button>
                     </div>
-                    <div className="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-12 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute top-1/2 -translate-y-1/2 -right-2 sm:-right-4 md:-right-12 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <button
                             onClick={nextSlide}
-                            className="w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all border border-slate-100"
+                            className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/90 shadow-lg flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all border border-slate-100"
                         >
-                            <ChevronRight size={20} />
+                            <ChevronRight size={18} />
                         </button>
                     </div>
                 </div>
