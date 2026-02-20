@@ -13,7 +13,7 @@ const features = [
     {
         icon: Medal,
         title: "Expert Specialists",
-        description: "Our team consists of highly qualified dental specialists with over 15+ years of clinical excellence."
+        description: "Our team consists of highly qualified dental specialists with over 7+ years of clinical excellence."
     },
     {
         icon: Sparkles,
@@ -47,7 +47,7 @@ const WhyChooseUs = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
-                            className="text-4xl md:text-6xl lg:text-7xl font-[family-name:var(--font-cormorant)] text-secondary italic leading-tight mb-6"
+                            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-[family-name:var(--font-cormorant)] text-secondary italic leading-tight mb-6"
                         >
                             Why Patients <br />
                             <span className="not-italic font-black text-primary tracking-tighter">Choose Us</span>
@@ -82,8 +82,8 @@ const WhyChooseUs = () => {
                                 <div className="mb-8 relative">
                                     <div className="absolute -top-2 -left-2 w-16 h-16 bg-primary/5 group-hover:bg-primary/10 transition-all duration-500 rounded-sm" />
                                     <div className="relative p-4 bg-primary/5 group-hover:bg-primary transition-all duration-500 rounded-sm w-fit">
-                                        {React.createElement(feature.icon, { 
-                                            size: 32, 
+                                        {React.createElement(feature.icon, {
+                                            size: 32,
                                             strokeWidth: 1.5,
                                             className: "text-primary group-hover:text-white transition-colors duration-500"
                                         })}

@@ -27,8 +27,8 @@ const FAQ = () => {
                             viewport={{ once: true }}
                         >
                             <span className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">Common Doubts</span>
-                            <h2 className="text-3xl md:text-5xl font-extrabold text-secondary mb-6 leading-tight">
-                                Answers to Your <br />
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-secondary mb-6 leading-tight">
+                                Answers to Your <br className="hidden sm:block" />
                                 <span className="text-primary italic font-medium">Concerns.</span>
                             </h2>
                             <p className="text-slate-500 mb-8 leading-relaxed">
@@ -38,7 +38,7 @@ const FAQ = () => {
                                 <div className="w-12 h-12 rounded-2xl bg-primary text-white flex items-center justify-center shrink-0">
                                     <HelpCircle className="w-6 h-6" />
                                 </div>
-                                <p className="text-sm font-bold text-secondary">Join 5000+ satisfied patients who trusted us.</p>
+                                <p className="text-sm font-bold text-secondary">Join 500+ satisfied patients who trusted us.</p>
                             </div>
                         </motion.div>
                     </div>

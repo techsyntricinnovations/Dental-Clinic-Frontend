@@ -1,4 +1,3 @@
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import DoctorProfile from "@/components/DoctorProfile";
@@ -9,20 +8,21 @@ import Testimonials from "@/components/Testimonials";
 
 import FAQ from "@/components/FAQ";
 
-import Footer from "@/components/Footer";
-
 export default function Home() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Dentist",
-    "name": "DentalCare Clinic Ranchi",
-    "image": "https://dentalcare-ranchi.com/logo.png",
+    "name": "Vandana Oral and Dental Care",
+    "alternateName": "Vandana Dental Clinic Ranchi",
+    "description": "Premium dental clinic in Ranchi offering Root Canal Treatment, Dental Implants, and Aesthetic Dentistry led by Dr. Vandana Agarwal.",
+    "image": "https://dentalcare-ranchi.com/assetes/logo1.png",
     "@id": "https://dentalcare-ranchi.com",
     "url": "https://dentalcare-ranchi.com",
-    "telephone": "+91 651 2345678",
+    "telephone": "+91 98355 00551",
+    "priceRange": "$$",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Beside Main Road, near Lalpur Chowk",
+      "streetAddress": "Harmu Road, opposite Santoshi Mata Mandir, Kumhartoli",
       "addressLocality": "Ranchi",
       "addressRegion": "Jharkhand",
       "postalCode": "834001",
@@ -30,8 +30,8 @@ export default function Home() {
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": 23.3441,
-      "longitude": 85.3096
+      "latitude": 23.3639,
+      "longitude": 85.3117
     },
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
@@ -58,7 +58,6 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Navbar />
       <Hero />
       <About />
       <DoctorProfile />
@@ -66,10 +65,7 @@ export default function Home() {
       <Services />
       <Process />
       <Testimonials />
-
       <FAQ />
-
-      <Footer />
     </main>
   );
 }

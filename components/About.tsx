@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Heart, Shield } from "lucide-react";
 
@@ -31,7 +32,7 @@ const About = () => {
 
                         {/* Experience Card */}
                         <div className="absolute -bottom-8 -right-8 bg-secondary p-8 rounded-3xl shadow-2xl hidden md:block">
-                            <p className="text-4xl font-extrabold text-white mb-1">15+</p>
+                            <p className="text-4xl font-extrabold text-white mb-1">7+</p>
                             <p className="text-sky-400 font-bold tracking-wider uppercase text-xs">Years of Excellence</p>
                         </div>
                     </motion.div>
@@ -52,9 +53,9 @@ const About = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.1 }}
                             viewport={{ once: true }}
-                            className="text-3xl md:text-5xl font-extrabold text-secondary mb-6 leading-tight"
+                            className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-secondary mb-6 leading-tight"
                         >
-                            The Art of Dentistry, <br />
+                            The Art of Dentistry, <br className="hidden sm:block" />
                             <span className="text-primary italic font-medium">Redefined.</span>
                         </motion.h2>
                         <motion.p
@@ -91,15 +92,12 @@ const About = () => {
                             ))}
                         </div>
 
-                        <motion.button
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.5 }}
-                            viewport={{ once: true }}
-                            className="bg-secondary text-white px-8 py-4 rounded-2xl font-bold hover:bg-slate-800 transition-colors shadow-lg shadow-slate-200"
+                        <Link
+                            href="/about"
+                            className="bg-secondary text-white px-8 py-4 rounded-2xl font-bold hover:bg-slate-800 transition-colors shadow-lg shadow-slate-200 inline-block"
                         >
                             Explore Our Story
-                        </motion.button>
+                        </Link>
                     </div>
                 </div>
             </div>

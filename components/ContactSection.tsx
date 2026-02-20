@@ -6,8 +6,8 @@ import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
 
 const contactItems = [
     { icon: MapPin, title: "Our Location", content: ["Beside Main Road, near Lalpur Chowk,", "Ranchi, Jharkhand 834001"], delay: 0.1 },
-    { icon: Phone, title: "Phone Number", content: ["+91 651 2345678", "+91 987 6543210"], delay: 0.2 },
-    { icon: Mail, title: "Email Address", content: ["info@dentalcare-ranchi.com", "support@dentalcare.com"], delay: 0.3 },
+    { icon: Phone, title: "Phone Number", content: ["+91 98355 00551", "+91 651 2345678"], delay: 0.2 },
+    { icon: Mail, title: "Email Address", content: ["drvandanaagarwal29@gmail.com"], delay: 0.3 },
     { icon: Clock, title: "Opening Hours", content: ["Mon - Sat: 9:00 AM - 8:00 PM", "Sunday: Closed"], delay: 0.4 }
 ];
 
@@ -35,9 +35,9 @@ const ContactSection = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
-                        className="text-4xl md:text-6xl lg:text-7xl font-[family-name:var(--font-cormorant)] text-secondary italic leading-tight mb-6"
+                        className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-[family-name:var(--font-cormorant)] text-secondary italic leading-tight mb-6"
                     >
-                        Visit Ranchi&apos;s Most <br />
+                        Visit Ranchi&apos;s Most <br className="hidden sm:block" />
                         <span className="not-italic font-black text-primary tracking-tighter">Advanced Clinic.</span>
                     </motion.h2>
                     <motion.p

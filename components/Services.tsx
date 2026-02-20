@@ -1,51 +1,52 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Gem, Sparkles, Ruler, Scissors, Baby, Clock } from "lucide-react";
+import { Gem, Sparkles, Ruler, Scissors, Baby, Activity } from "lucide-react";
 
 const services = [
     {
+        id: "rct",
+        title: "Root Canal (RCT)",
+        description: "Save your natural teeth from infection with our painless and precision-guided root canal therapy.",
+        category: "Endodontics",
+        icon: Activity
+    },
+    {
         id: "dental-implants",
         title: "Dental Implants",
-        description: "Replace missing teeth with natural-looking implants that are strong and last a lifetime.",
-        category: "Replacement",
+        description: "Permanent and natural-looking tooth replacement solutions that restore your bite and confidence.",
+        category: "Restoration",
         icon: Gem
     },
     {
-        id: "smile-makeovers",
-        title: "Smile Makeovers",
-        description: "A mix of whitening and veneers to give you a bright, beautiful, and confident smile.",
-        category: "Cosmetic",
-        icon: Sparkles
-    },
-    {
-        id: "invisible-braces",
-        title: "Invisible Braces",
-        description: "Straighten your teeth comfortably with clear aligners that are almost impossible to see.",
-        category: "Braces",
-        icon: Ruler
-    },
-    {
-        id: "oral-surgery",
-        title: "Oral Surgery",
-        description: "Safe and painless procedures for tooth removals and correcting jaw issues.",
-        category: "Surgery",
+        id: "crowns-bridges",
+        title: "Crowns & Bridges",
+        description: "Restore structural integrity and aesthetics with premium crowns and bridge solutions.",
+        category: "Prosthodontics",
         icon: Scissors
     },
     {
-        id: "kids-dentistry",
-        title: "Kids Dentistry",
-        description: "Gentle and fun dental checkups to keep your child's teeth healthy and strong.",
-        category: "Care",
+        id: "gum-therapy",
+        title: "Gum Therapy",
+        description: "Advanced periodontal treatments to ensure healthy gums, the foundation of a beautiful smile.",
+        category: "Periodontics",
         icon: Baby
     },
     {
-        id: "emergency-care",
-        title: "Emergency Care",
-        description: "Fast relief for toothaches or dental accidents, available any time of the day or night.",
-        category: "24/7 Support",
-        icon: Clock
+        id: "orthodontics",
+        title: "Orthodontics",
+        description: "Specialized care for teeth alignment, including invisible braces and traditional orthodontics.",
+        category: "Alignment",
+        icon: Ruler
+    },
+    {
+        id: "teeth-whitening",
+        title: "Teeth Whitening",
+        description: "Brighten your smile instantly with our professional-grade, safe teeth whitening treatments.",
+        category: "Cosmetic",
+        icon: Sparkles
     }
 ];
 
@@ -71,9 +72,9 @@ const Services = () => {
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8 }}
-                            className="text-4xl md:text-7xl font-[family-name:var(--font-cormorant)] text-secondary italic leading-tight"
+                            className="text-3xl sm:text-5xl md:text-7xl font-[family-name:var(--font-cormorant)] text-secondary italic leading-tight"
                         >
-                            The Science of <br />
+                            The Science of <br className="hidden sm:block" />
                             <span className="not-italic font-black text-primary tracking-tighter">Boutique SMILES.</span>
                         </motion.h2>
                     </div>
@@ -91,19 +92,15 @@ const Services = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     {services.map((service, index) => (
-                        <motion.div
+                        <Link
                             key={index}
-                            id={service.id}
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 1, delay: index * 0.1 }}
+                            href={`/services/${service.id}`}
                             className="group relative p-6 md:p-10 lg:p-12 border-slate-200 hover:bg-white transition-all duration-700
                                        md:border-r md:border-b
                                        [&:nth-child(3n)]:md:border-r-0
                                        [&:nth-last-child(-n+3)]:md:border-b-0
                                        odd:border-r-0 md:odd:border-r
-                                       even:border-r-0 md:even:border-r lg:even:border-r"
+                                       even:border-r-0 md:even:border-r lg:even:border-r block"
                         >
                             {/* Animated Accent Line */}
                             <motion.div
@@ -135,7 +132,7 @@ const Services = () => {
                             <div className="absolute top-8 right-8 text-primary/25 group-hover:text-primary/40 transition-all duration-500">
                                 {React.createElement(service.icon, { size: 28, strokeWidth: 1.25 })}
                             </div>
-                        </motion.div>
+                        </Link>
                     ))}
                 </div>
             </div>

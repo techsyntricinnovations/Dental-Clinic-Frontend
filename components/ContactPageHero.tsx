@@ -25,9 +25,9 @@ const ContactPageHero = () => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.1 }}
-                            className="text-3xl md:text-4xl lg:text-5xl font-[family-name:var(--font-cormorant)] text-white italic leading-tight"
+                            className="text-3xl sm:text-4xl lg:text-5xl font-[family-name:var(--font-cormorant)] text-white italic leading-tight"
                         >
-                            We&apos;re Here <br />
+                            We&apos;re Here <br className="hidden sm:block" />
                             <span className="not-italic font-black text-sky-400 tracking-tighter">To Listen.</span>
                         </motion.h1>
                     </div>

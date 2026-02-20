@@ -16,7 +16,6 @@ import {
 
 const Footer = () => {
     const quickLinks = ["Home", "Services", "About Us", "Our Team", "Pricing", "FAQ"];
-    const services = ["Teeth Whitening", "Oral Surgery", "Dental Implants", "Orthodontics", "Kids Dentistry", "Root Canal"];
 
     return (
         <footer className="bg-sky-950 text-slate-400 pt-20 pb-10 overflow-hidden relative border-t border-white/5">
@@ -30,17 +29,25 @@ const Footer = () => {
                         transition={{ duration: 0.6 }}
                         className="flex flex-col gap-6"
                     >
-                        <Link href="/" className="flex items-center">
+                        <Link href="/" className="flex items-center gap-3">
                             <Image
-                                src="/assetes/logo.jpeg"
-                                alt="DentalCare"
-                                width={140}
-                                height={44}
-                                className="h-10 md:h-11 w-auto object-contain"
+                                src="/assetes/logo1.png"
+                                alt="Vandana Oral and Dental Care"
+                                width={240}
+                                height={80}
+                                className="h-16 md:h-20 w-auto object-contain"
                             />
+                            <div className="flex flex-col">
+                                <span className="text-2xl md:text-3xl font-[family-name:var(--font-cormorant)] font-bold italic tracking-tight text-white leading-none">
+                                    Vandana Oral
+                                </span>
+                                <span className="text-[11px] uppercase tracking-[0.3em] font-bold text-primary leading-none mt-1">
+                                    & Dental Care
+                                </span>
+                            </div>
                         </Link>
                         <p className="text-slate-400 leading-relaxed md:max-w-xs">
-                            Providing exceptional dental care since 2010. We pride ourselves on creating a comfortable environment for all our patients.
+                            Providing exceptional dental care since 2017. We pride ourselves on creating a comfortable environment for all our patients.
                         </p>
                         <div className="flex items-center gap-3">
                             <a href="#" className="group w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-[#1877F2] transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-[#1877F2]/30">
@@ -75,7 +82,10 @@ const Footer = () => {
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.4, delay: 0.2 + (i * 0.05) }}
                                 >
-                                    <Link href={`#${link.toLowerCase()}`} className="text-slate-400 hover:text-primary transition-colors">
+                                    <Link
+                                        href={link === "About Us" ? "/about" : link === "Blogs" ? "/blogs" : link === "Home" ? "/" : link === "Contact" ? "/contact" : `/#${link.toLowerCase().replace(" ", "")}`}
+                                        className="text-slate-400 hover:text-primary transition-colors"
+                                    >
                                         {link}
                                     </Link>
                                 </motion.li>
@@ -90,18 +100,25 @@ const Footer = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.2 }}
                     >
-                        <h4 className="text-white font-bold text-lg mb-6">Services</h4>
+                        <h4 className="text-white font-bold text-lg mb-6">Our Services</h4>
                         <ul className="flex flex-col gap-4">
-                            {services.map((link, i) => (
+                            {[
+                                { name: "Root Canal (RCT)", slug: "rct" },
+                                { name: "Dental Implants", slug: "dental-implants" },
+                                { name: "Crowns & Bridges", slug: "crowns-bridges" },
+                                { name: "Gum Therapy", slug: "gum-therapy" },
+                                { name: "Orthodontics", slug: "orthodontics" },
+                                { name: "Teeth Whitening", slug: "teeth-whitening" }
+                            ].map((service, i) => (
                                 <motion.li
-                                    key={link}
+                                    key={service.slug}
                                     initial={{ opacity: 0, x: -20 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.4, delay: 0.3 + (i * 0.05) }}
                                 >
-                                    <Link href="#" className="text-slate-400 hover:text-primary transition-colors">
-                                        {link}
+                                    <Link href={`/services/${service.slug}`} className="text-slate-400 hover:text-primary transition-colors">
+                                        {service.name}
                                     </Link>
                                 </motion.li>
                             ))}
@@ -118,9 +135,9 @@ const Footer = () => {
                         <h4 className="text-white font-bold text-lg mb-6">Contact Us</h4>
                         <ul className="flex flex-col gap-6">
                             {[
-                                { icon: MapPin, text: "Beside Main Road, near Lalpur Chowk\nRanchi, Jharkhand 834001", delay: 0.4 },
-                                { icon: Phone, text: "+91 651 2345678", delay: 0.5 },
-                                { icon: Mail, text: "info@dentalcare-ranchi.com", delay: 0.6 }
+                                { icon: MapPin, text: "Kumhar Toli Rd, Kumhartoli\nRanchi, Jharkhand 834001", delay: 0.4 },
+                                { icon: Phone, text: "+91 98355 00551", delay: 0.5 },
+                                { icon: Mail, text: "drvandanaagarwal29@gmail.com", delay: 0.6 }
                             ].map((item, i) => (
                                 <motion.li
                                     key={i}
@@ -153,7 +170,7 @@ const Footer = () => {
                     transition={{ duration: 0.6, delay: 0.5 }}
                     className="flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-slate-400"
                 >
-                    <p>© {new Date().getFullYear()} DentalCare. All rights reserved.</p>
+                    <p>© {new Date().getFullYear()} Vandana Oral and Dental Care. All rights reserved.</p>
                     <div className="flex items-center gap-8">
                         <Link href="#" className="hover:text-primary transition-colors">Privacy Policy</Link>
                         <Link href="#" className="hover:text-primary transition-colors">Terms of Service</Link>

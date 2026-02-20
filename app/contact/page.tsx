@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
 import ContactSection from "@/components/ContactSection";
-import Footer from "@/components/Footer";
 import ContactPageHero from "@/components/ContactPageHero";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
-  description: "Get in touch with DentalCare Ranchi. Visit our clinic, call us, or send a message. We're here to help with all your dental needs.",
+  title: "Contact Best Dentist in Ranchi | Book Appointment",
+  description: "Get in touch with Vandana Oral and Dental Care in Ranchi. Visit our Harmu Road clinic, call us at +91 98355 00551, or book your dental consultation online.",
+  alternates: {
+    canonical: 'https://dentalcare-ranchi.com/contact',
+  }
 };
 
 export default function ContactPage() {
   return (
     <main className="min-h-screen">
-      <Navbar />
       <ContactPageHero />
       <ContactSection />
-      <Footer />
     </main>
   );
 }
