@@ -20,7 +20,7 @@ const DoctorProfile = () => {
                     >
                         <div className="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative">
                             <Image
-                                src="/assetes/Dr.webp"
+                                src="/assetes/Dr.jpeg"
                                 alt="Dr. Vandana Agarwal"
                                 width={400}
                                 height={500}
@@ -32,7 +32,7 @@ const DoctorProfile = () => {
                         {/* Name Card */}
                         <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white px-6 md:px-10 py-5 md:py-6 rounded-3xl shadow-xl w-[90%] md:w-auto text-center border border-slate-100">
                             <h3 className="text-xl md:text-2xl font-extrabold text-secondary mb-1">Dr. Vandana Agarwal</h3>
-                            <p className="text-primary font-bold text-[10px] md:text-sm tracking-widest uppercase">Senior Implantologist & Aesthetic Surgeon</p>
+                            <p className="text-primary font-bold text-[10px] md:text-sm tracking-widest uppercase">BDS · FAAD (Aesthetic Dentistry)</p>
                         </div>
                     </motion.div>
 

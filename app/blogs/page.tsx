@@ -8,22 +8,24 @@ import { getBlogs } from "@/lib/strapi";
 import Image from "next/image";
 
 // Types for Strapi Data
+// Types for Strapi 5 Data (Flat structure)
+interface StrapiImage {
+    url?: string;
+    data?: {
+        attributes?: {
+            url?: string;
+        };
+    };
+}
+
 interface Blog {
     id: number;
-    attributes: {
-        title: string;
-        slug: string;
-        excerpt: string;
-        publishedAt: string;
-        author?: string;
-        image?: {
-            data: {
-                attributes: {
-                    url: string;
-                }
-            }
-        }
-    }
+    title: string;
+    slug: string;
+    excerpt: string;
+    publishedAt: string;
+    author?: string;
+    image?: StrapiImage;
 }
 
 export default function BlogsPage() {
@@ -34,42 +36,37 @@ export default function BlogsPage() {
         async function fetchBlogs() {
             const data = (await getBlogs()) as Blog[];
             if (data && data.length > 0) {
+                // In Strapi 5, images are often still nested under an object but the main fields are flat
                 setBlogs(data);
             } else {
                 // Mock data for demo if Strapi is not connected
                 setBlogs([
                     {
                         id: 1,
-                        attributes: {
-                            title: "The Importance of Regular Dental Checkups",
-                            slug: "regular-checkups",
-                            excerpt: "Discover why visiting your dentist twice a year is crucial for maintaining a healthy smile and preventing major dental issues.",
-                            publishedAt: "2024-03-20T10:00:00Z",
-                            author: "Dr. Vandana Agarwal",
-                            image: { data: { attributes: { url: "https://images.pexels.com/photos/3845810/pexels-photo-3845810.jpeg" } } }
-                        }
+                        title: "The Importance of Regular Dental Checkups",
+                        slug: "regular-checkups",
+                        excerpt: "Discover why visiting your dentist twice a year is crucial for maintaining a healthy smile and preventing major dental issues.",
+                        publishedAt: "2024-03-20T10:00:00Z",
+                        author: "Dr. Vandana Agarwal",
+                        image: { url: "https://images.pexels.com/photos/3845810/pexels-photo-3845810.jpeg" }
                     },
                     {
                         id: 2,
-                        attributes: {
-                            title: "Revolutionizing Smiles with Invisalign",
-                            slug: "invisalign-guide",
-                            excerpt: "Everything you need to know about clear aligners and how they can transform your smile without the discomfort of traditional braces.",
-                            publishedAt: "2024-03-15T10:00:00Z",
-                            author: "Dr. Vandana Agarwal",
-                            image: { data: { attributes: { url: "https://images.pexels.com/photos/3845806/pexels-photo-3845806.jpeg" } } }
-                        }
+                        title: "Revolutionizing Smiles with Invisalign",
+                        slug: "invisalign-guide",
+                        excerpt: "Everything you need to know about clear aligners and how they can transform your smile without the discomfort of traditional braces.",
+                        publishedAt: "2024-03-15T10:00:00Z",
+                        author: "Dr. Vandana Agarwal",
+                        image: { url: "https://images.pexels.com/photos/3845806/pexels-photo-3845806.jpeg" }
                     },
                     {
                         id: 3,
-                        attributes: {
-                            title: "Teeth Whitening: Facts vs. Myths",
-                            slug: "teeth-whitening-myths",
-                            excerpt: "Professional teeth whitening vs. home remedies. We separate fact from fiction to help you achieve a brighter, safer smile.",
-                            publishedAt: "2024-03-10T10:00:00Z",
-                            author: "Dr. Vandana Agarwal",
-                            image: { data: { attributes: { url: "https://images.pexels.com/photos/4269490/pexels-photo-4269490.jpeg" } } }
-                        }
+                        title: "Teeth Whitening: Facts vs. Myths",
+                        slug: "teeth-whitening-myths",
+                        excerpt: "Professional teeth whitening vs. home remedies. We separate fact from fiction to help you achieve a brighter, safer smile.",
+                        publishedAt: "2024-03-10T10:00:00Z",
+                        author: "Dr. Vandana Agarwal",
+                        image: { url: "https://images.pexels.com/photos/4269490/pexels-photo-4269490.jpeg" }
                     }
                 ] as Blog[]);
             }
@@ -125,13 +122,16 @@ export default function BlogsPage() {
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
                             {blogs.map((blog, i) => {
-                                const { title, slug, excerpt, publishedAt, author, image } = blog.attributes;
+                                const { title, slug, excerpt, publishedAt, author, image } = blog;
                                 const date = new Date(publishedAt).toLocaleDateString('en-US', {
                                     year: 'numeric',
                                     month: 'long',
                                     day: 'numeric'
                                 });
-                                const imageUrl = image?.data?.attributes?.url || "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800";
+
+                                // In Strapi 5, the image might be direct or still nested depending on the provider
+                                const imageUrl = image?.url || image?.data?.attributes?.url || "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800";
+
                                 // If imageUrl is relative (Strapi fallback), prepend Strapi URL
                                 const finalImageUrl = imageUrl.startsWith('http') ? imageUrl : `${process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'}${imageUrl}`;
 
@@ -198,3 +198,4 @@ export default function BlogsPage() {
         </main>
     );
 }
+
