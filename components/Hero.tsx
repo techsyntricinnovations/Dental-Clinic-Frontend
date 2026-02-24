@@ -18,14 +18,9 @@ const Hero = () => {
                 loop
                 playsInline
                 preload="auto"
-                poster="/assetes/Dr1.webp"
-                onCanPlayThrough={(e) => {
-                    (e.target as HTMLVideoElement).style.opacity = "1";
-                }}
-                className="absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-1000"
-                style={{ opacity: 0 }}
+                className="absolute inset-0 w-full h-full object-cover z-0"
             >
-                <source src="/assetes/Dvideo1.mp4" type="video/mp4" />
+                <source src="/assetes/Dvideo2.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
 

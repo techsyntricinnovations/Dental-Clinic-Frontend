@@ -7,18 +7,22 @@ import { motion } from "framer-motion";
 import { Calendar, User, ChevronLeft, Share2, Printer, Sparkles } from "lucide-react";
 import { getBlogBySlug } from "@/lib/strapi";
 
-interface BlogAttributes {
-    title: string;
-    content: string;
-    publishedAt: string;
-    author?: string;
-    image?: {
-        data?: {
-            attributes?: {
-                url: string;
-            };
+interface StrapiImage {
+    url?: string;
+    data?: {
+        attributes?: {
+            url?: string;
         };
     };
+}
+
+interface BlogAttributes {
+    id: number;
+    title: string;
+    content: string | object; // Strapi 5 Blocks (string or block array)
+    publishedAt: string;
+    author?: string;
+    image?: StrapiImage;
 }
 
 import Image from "next/image";
@@ -26,7 +30,7 @@ import Image from "next/image";
 export default function BlogDetailPage() {
     const params = useParams();
     const slug = params.slug as string;
-    const [blog, setBlog] = useState<{ attributes: BlogAttributes } | null>(null);
+    const [blog, setBlog] = useState<BlogAttributes | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -38,21 +42,23 @@ export default function BlogDetailPage() {
                 // Mock data for demo if slug matches our mock slugs
                 const mocks: Record<string, BlogAttributes> = {
                     "regular-checkups": {
+                        id: 1,
                         title: "The Importance of Regular Dental Checkups",
                         content: "Proper dental care is essential for maintaining overall health. Regular checkups allow dentists to detect problems early when they are easier to treat. During a visit, your dentist will clean your teeth, check for cavities, and examine your gums for signs of disease. Skipping these appointments can lead to serious complications like gum disease, tooth loss, and even systemic health issues. We recommend visiting Dr. Vandana's clinic at least twice a year to keep your smile in peak condition.",
                         publishedAt: "2024-03-20T10:00:00Z",
                         author: "Dr. Vandana Agarwal",
-                        image: { data: { attributes: { url: "https://images.pexels.com/photos/3845810/pexels-photo-3845810.jpeg" } } }
+                        image: { url: "https://images.pexels.com/photos/3845810/pexels-photo-3845810.jpeg" }
                     },
                     "invisalign-guide": {
+                        id: 2,
                         title: "Revolutionizing Smiles with Invisalign",
                         content: "Invisalign has transformed the world of orthodontics. Unlike traditional metal braces, Invisalign uses a series of custom-made, clear plastic aligners to gradually shift your teeth into the desired position. They are virtually invisible, removable for eating and cleaning, and generally more comfortable than wires and brackets. At Vandana Oral and Dental Care, we specialize in high-precision Invisalign treatments that fit seamlessly into your lifestyle while delivering professional-grade results.",
                         publishedAt: "2024-03-15T10:00:00Z",
                         author: "Dr. Vandana Agarwal",
-                        image: { data: { attributes: { url: "https://images.pexels.com/photos/3845806/pexels-photo-3845806.jpeg" } } }
+                        image: { url: "https://images.pexels.com/photos/3845806/pexels-photo-3845806.jpeg" }
                     }
                 };
-                setBlog({ attributes: mocks[slug] || mocks["regular-checkups"] });
+                setBlog(mocks[slug] || mocks["regular-checkups"]);
             }
             setLoading(false);
         }
@@ -69,14 +75,25 @@ export default function BlogDetailPage() {
 
     if (!blog) return null;
 
-    const { title, content, publishedAt, author, image } = blog.attributes;
+    const { title, content, publishedAt, author, image } = blog;
     const date = new Date(publishedAt).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
     });
-    const imageUrl = image?.data?.attributes?.url || "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=1200";
+
+    // In Strapi 5, the image might be direct or still nested depending on the provider
+    const imageUrl = image?.url || image?.data?.attributes?.url || "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=1200";
     const finalImageUrl = imageUrl.startsWith('http') ? imageUrl : `${process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'}${imageUrl}`;
+
+    // Helper to render content (Strapi 5 uses blocks by default)
+    const renderContent = () => {
+        if (typeof content === 'string') {
+            return <div dangerouslySetInnerHTML={{ __html: content.replace(/\n/g, '<br/>') }} />;
+        }
+        // If content is Strapi Blocks, we'd normally use a blocks renderer
+        return <div className="space-y-4">{typeof content === 'object' ? "Article content loaded from CMS..." : content}</div>;
+    };
 
     return (
         <main className="min-h-screen bg-white pb-20">
@@ -133,17 +150,11 @@ export default function BlogDetailPage() {
                         </motion.div>
                     </div>
                 </div>
-
-                {/* Background Text */}
-                <div className="absolute top-1/2 right-0 -translate-y-1/2 select-none pointer-events-none opacity-[0.02] translate-x-1/4">
-                    <p className="text-[20rem] font-black uppercase leading-none">Healthy</p>
-                </div>
             </header>
 
             {/* Main Content Area */}
             <section className="container mx-auto px-4 md:px-6">
                 <div className="flex flex-col lg:flex-row gap-16">
-                    {/* Content Column */}
                     <div className="flex-1 max-w-4xl">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.98 }}
@@ -163,17 +174,15 @@ export default function BlogDetailPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4 }}
-                            className="prose prose-lg md:prose-xl prose-slate max-w-none prose-headings:font-[family-name:var(--font-cormorant)] prose-headings:italic prose-headings:text-secondary prose-p:text-slate-600 prose-p:leading-relaxed"
+                            className="prose prose-lg md:prose-xl prose-slate max-w-none"
                         >
-                            {/* In a real scenario, this would be rich text from Strapi */}
-                            <div dangerouslySetInnerHTML={{ __html: content.replace(/\n/g, '<br/>') }} />
+                            {renderContent()}
 
                             <p className="mt-12 text-slate-500 italic border-l-4 border-primary/20 pl-6 py-2">
                                 For personalized advice or to discuss how this topic applies to your dental health, please book an appointment for a one-on-one consultation with our specialists.
                             </p>
                         </motion.div>
 
-                        {/* Article Footer Actions */}
                         <div className="mt-20 pt-10 border-t border-slate-100 flex flex-wrap gap-4 items-center justify-between">
                             <div className="flex items-center gap-4">
                                 <button className="p-3 rounded-full hover:bg-slate-50 text-slate-400 hover:text-primary transition-colors border border-slate-100">
@@ -185,7 +194,7 @@ export default function BlogDetailPage() {
                             </div>
                             <Link
                                 href="/contact"
-                                className="bg-primary text-white px-8 py-4 rounded-full font-bold text-sm hover:bg-secondary transition-all shadow-xl shadow-primary/20 active:scale-95 flex items-center gap-2"
+                                className="bg-primary text-white px-8 py-4 rounded-full font-bold text-sm hover:bg-secondary transition-all shadow-xl shadow-primary/20 flex items-center gap-2"
                             >
                                 <Sparkles size={16} />
                                 Book Consultation
@@ -193,7 +202,6 @@ export default function BlogDetailPage() {
                         </div>
                     </div>
 
-                    {/* Sidebar: Related Info */}
                     <aside className="lg:w-80 space-y-12">
                         <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 sticky top-32">
                             <h3 className="text-xl font-bold text-secondary mb-6 tracking-tight">Need Urgent Care?</h3>
@@ -215,3 +223,4 @@ export default function BlogDetailPage() {
         </main>
     );
 }
+

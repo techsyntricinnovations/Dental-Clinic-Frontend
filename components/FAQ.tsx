@@ -12,7 +12,7 @@ const FAQ = () => {
         { q: "How long do porcelain veneers last?", a: "With proper care and regular checkups, high-quality porcelain veneers can last between 10 to 15 years, and sometimes even longer." },
         { q: "Do you offer emergency dental services?", a: "Yes, we prioritize dental emergencies. If you have severe pain or a broken tooth, contact us immediately for a same-day appointment." },
         { q: "Are professional whitening treatments safe?", a: "Absolutely. Our in-office whitening uses medical-grade gels that are safe for enamel and effectively remove deep stains without sensitivity." },
-        { q: "What should I expect at my first visit?", a: "Your first visit includes a comprehensive 3D scan, a physical exam by Dr. Sharma, and a detailed discussion about your oral health goals and treatment options." }
+        { q: "What should I expect at my first visit?", a: "Your first visit includes a comprehensive 3D scan, a physical exam by Dr. Vandana Agarwal, and a detailed discussion about your oral health goals and treatment options." }
     ];
 
     return (

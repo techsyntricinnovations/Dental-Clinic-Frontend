@@ -21,13 +21,13 @@ export default function ClientServicePage({ service }: { service: Service }) {
     return (
         <main className="min-h-screen bg-slate-50">
             {/* Hero Section */}
-            <section className="relative h-[90vh] min-h-[700px] flex items-center pt-20 overflow-hidden bg-slate-200">
+            <section className="relative h-[60vh] md:h-[90vh] md:min-h-[700px] flex items-center pt-20 overflow-hidden bg-slate-200">
                 <Image
                     src={service.image}
                     alt={service.title}
                     fill
                     priority
-                    className={`object-cover ${service.imagePosition || 'object-center'}`}
+                    className={`object-cover object-center md:${service.imagePosition || 'object-center'}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-sky-950/90 via-sky-950/40 to-transparent" />
 
