@@ -8,6 +8,7 @@ export const metadata: Metadata = {
     alternates: {
         canonical: 'https://dentalcare-ranchi.com/about',
     }
+
 };
 
 export default function AboutPage() {

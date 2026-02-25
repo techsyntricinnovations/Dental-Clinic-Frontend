@@ -8,12 +8,13 @@ export async function getBlogs() {
         if (!response.ok) throw new Error('Failed to fetch blogs');
         const data = await response.json();
 
-        // Strapi 5 returns { data: [...] } where each item is flat (no .attributes)
+        // Strapi 5 returns { data: [...] } where e ach item is flat (no .attributes)
         return data.data || [];
     } catch (error) {
         console.error("Error fetching blogs from Strapi:", error);
         return [];
     }
+
 }
 
 export async function getBlogBySlug(slug: string) {
